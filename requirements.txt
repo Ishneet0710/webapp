@@ -5,4 +5,4 @@ tensorflow-hub
 pillow==9.0.1
 tensorflow==2.10.0
 matplotlib==3.5.1
-tempfile
+temp
