@@ -198,10 +198,10 @@ elif app_mode == 'Run in Real-Time':
             "video": True,
             "audio": False
         },
-        # # For Deploying
-        # rtc_configuration={
-        #     "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
-        # }
+        # For Deploying
+        rtc_configuration={
+             "iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]
+        }
     )
 
     with kpi:
