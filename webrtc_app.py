@@ -28,9 +28,6 @@ st.markdown(
 
 st.sidebar.title('MoveNet App Sidebar')
 
-lock = threading.Lock()
-no_ppl = {"ppl_count": None}
-
 def callback(frame):
     img = frame.to_ndarray(format="bgr24")
 
@@ -38,9 +35,6 @@ def callback(frame):
 
     out_image, people_count = movenet_processing(out_image, max_people = max_people, mn_conf = detection_confidence,\
             kp_conf = keypoint_confidence, pred_conf = classification_confidence, draw_movenet_skeleton = draw_skeleton)
-
-    with lock:
-        no_ppl["ppl_count"] = people_count
 
     return av.VideoFrame.from_ndarray(out_image, format="bgr24")
 
@@ -189,9 +183,7 @@ elif app_mode == 'Run in Real-Time':
 
     st.markdown("## Real-Time Output")
 
-    kpi, _ = st.columns(2)
-
-    ctx = webrtc_streamer(
+    webrtc_streamer(
         key="real-time",
         video_frame_callback=callback,
         media_stream_constraints={
@@ -222,18 +214,4 @@ elif app_mode == 'Run in Real-Time':
           ]
         }
     )
-    
-    
-
-    with kpi:
-        st.markdown("**Detected People**")
-        kpi_text = st.markdown('N/A')
-
-    while ctx.state.playing:
-        with lock:
-            ppl_count = no_ppl["ppl_count"]
-            
-        if ppl_count is None:
-            continue
-            
-        kpi_text.write(f"<h1 style='text-align: center;'>{int(ppl_count)}</h1>", unsafe_allow_html=True)
+   
