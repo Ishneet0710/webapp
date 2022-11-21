@@ -3,7 +3,6 @@ from streamlit_webrtc import webrtc_streamer
 import cv2
 from MoveNet_Processing_Utils import movenet_processing
 import av
-import threading
 from PIL import Image
 import numpy as np
 
