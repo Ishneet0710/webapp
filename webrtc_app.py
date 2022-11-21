@@ -200,9 +200,30 @@ elif app_mode == 'Run in Real-Time':
         },
         # For Deploying
         rtc_configuration={
-             "iceServers": [{"urls": ["stun:openrelay.metered.ca:80"]}]
+             "iceServers": [
+            {
+              "urls": "stun:openrelay.metered.ca:80",
+            },
+            {
+              "urls": "turn:openrelay.metered.ca:80",
+              "username": "openrelayproject",
+              "credential": "openrelayproject",
+            },
+            {
+              "urls": "turn:openrelay.metered.ca:443",
+              "username": "openrelayproject",
+              "credential": "openrelayproject",
+            },
+            {
+              "urls": "turn:openrelay.metered.ca:443?transport=tcp",
+              "username": "openrelayproject",
+              "credential": "openrelayproject",
+            },
+          ]
         }
     )
+    
+    
 
     with kpi:
         st.markdown("**Detected People**")
